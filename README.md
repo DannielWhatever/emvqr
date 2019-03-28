@@ -1,5 +1,6 @@
-# emvqr
+# emvqr
 
+[![Build Status](https://travis-ci.com/DannielWhatever/emvqr.svg?branch=master)](https://travis-ci.com/DannielWhatever/emvqr)
 
 ## how to use
 
@@ -14,7 +15,7 @@ console.log('result', result);
 
 ---
 
-## for personal use :mask:
+## for personal use :mask:
 
 ##### toDo
 
