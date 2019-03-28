@@ -1,0 +1,20 @@
+{
+  "name": "emvqr",
+  "version": "0.0.1",
+  "description": "help to work with emv qr code specification for digital payments",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test/ --coverage"
+  },
+  "author": "dannielwhatever",
+  "repository": "github:dannielwhatever/emvqr",
+  "license": "ISC",
+  "keywords": [
+    "emv",
+    "qr",
+    "payment"
+  ],
+  "devDependencies": {
+    "jest": "^24.5.0"
+  }
+}
