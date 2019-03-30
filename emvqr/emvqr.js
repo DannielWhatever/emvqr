@@ -1,4 +1,5 @@
 
+const crc = require('./crc');
 const models = require('./models');
 const getDataObjectName = models.getDataObjectName;
 
@@ -59,8 +60,9 @@ function validateChecksum(emvString) {
     const checksum = emvString.substring(emvString.length - 4);
     debug.log('emvData', emvData);
     debug.log('checksum', checksum);
-    
-    return true;
+
+    const expectedCRC = crc.computeCRC(emvData);
+    return expectedCRC === checksum;
 }
 
 module.exports = {
