@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.com/DannielWhatever/emvqr.svg?branch=master)](https://travis-ci.com/DannielWhatever/emvqr)
 
+
+Javascript library to parse EMV QR codes.
+
 ## how to use
 
 ```
