@@ -73,24 +73,53 @@ const dataObjectsSchema = {
         presence: 'O',
     },
 };
+const dataObjectsSchemaSubData = {
+    '00': {
+        name: 'Global Unique Identifier',
+        presence: 'M',
+    },
+    '01': {
+        name: 'Merchat PAN',
+        presence: 'O',
+    },
+    '02': {
+        name: 'Merchant ID',
+        presence: 'M',
+    },
+    '03': {
+        name: 'Merchant Criteria',
+        presence: 'M',
+    },
+};
 
 function getDataObject(stringId) {
     let dataObject = dataObjectsSchema[stringId];
-    if(!dataObject) {
+    if (!dataObject) {
         const id = parseInt(stringId);
-        (id >=  2 && id <= 51) && (dataObject = dataObjectsSchema['02-51']);
+        (id >= 2 && id <= 51) && (dataObject = dataObjectsSchema['02-51']);
         (id >= 65 && id <= 79) && (dataObject = dataObjectsSchema['65-79']);
         (id >= 80 && id <= 99) && (dataObject = dataObjectsSchema['80-99']);
+    }
+    return dataObject;
+}
+function getDataObjectSubData(stringId) {
+    let dataObject = dataObjectsSchemaSubData[stringId];
+    if (!dataObject) {
     }
     return dataObject;
 }
 
 function getDataObjectName(stringId) {
     const dataObject = getDataObject(stringId);
-    return dataObject ? dataObject.name : undefined;
+    return dataObject ? dataObject.name : undefined;
+}
+function getDataObjectNameSubData(stringId) {
+    const dataObject = getDataObjectSubData(stringId);
+    return dataObject ? dataObject.name : undefined;
 }
 
 
 module.exports = {
-    getDataObjectName
+    getDataObjectName,
+    getDataObjectNameSubData
 };
