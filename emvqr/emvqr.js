@@ -2,6 +2,7 @@
 const crc = require('./crc');
 const models = require('./models');
 const getDataObjectName = models.getDataObjectName;
+const getDataObjectNameSubData = models.getDataObjectNameSubData;
 
 // 
 let debug = { log: o => o };
@@ -12,10 +13,9 @@ let debug = { log: o => o };
  */
 function decode(emvString) {
     const emvObject = {};
-
     // parse emv string
     let inputText = emvString;
-    while(inputText.length > 0){
+    while (inputText.length > 0) {
         debug.log('inputText', inputText);
         let { emvItem, remainingText } = readNext(inputText);
         emvObject[emvItem.id] = emvItem;
@@ -23,9 +23,23 @@ function decode(emvString) {
     }
 
     // validate checksum
-    if(!validateChecksum(emvString)){
+    if (!validateChecksum(emvString)) {
         throw new Error('checksum validation failed.');
     };
+
+    return emvObject;
+}
+function decodeSubData(emvString) {
+    const emvObject = {};
+
+    // parse emv string
+    let inputText = emvString;
+    while (inputText.length > 0) {
+        debug.log('inputText', inputText);
+        let { emvItem, remainingText } = readNextSubData(inputText);
+        emvObject[emvItem.id] = emvItem;
+        inputText = remainingText;
+    }
 
     return emvObject;
 }
@@ -41,6 +55,22 @@ function readNext(inputText) {
     const emvItem = {
         id,
         name: getDataObjectName(id),
+        len,
+        data
+    };
+    const remainingText = inputText.substring(len + 4);
+    return {
+        emvItem,
+        remainingText
+    };
+}
+function readNextSubData(inputText) {
+    const id = inputText.substring(0, 2);
+    const len = parseInt(inputText.substring(2, 4));
+    const data = inputText.substring(4, len + 4);
+    const emvItem = {
+        id,
+        name: getDataObjectNameSubData(id),
         len,
         data
     };
@@ -68,4 +98,5 @@ function validateChecksum(emvString) {
 module.exports = {
     decode,
     enableDebugLog: () => (debug = console),
+    decodeSubData
 }
