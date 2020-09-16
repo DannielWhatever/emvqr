@@ -1,8 +1,5 @@
 # emvqr
 
-[![Build Status](https://travis-ci.com/DannielWhatever/emvqr.svg?branch=master)](https://travis-ci.com/DannielWhatever/emvqr)
-
-
 Javascript library to parse EMV QR codes.
 
 ## how to use
@@ -15,19 +12,4 @@ const result = emvqr.decode(example);
 console.log('result', result);
 //result [ { id: '00', name: 'Payload Format Indicator', len: 2, data: '01' }, ...
 ```
-
----
-
-## for personal use :mask:
-
-##### toDo
-
-- validate checksum
-
-- valdiate mandatory items
-- validate items, data
-
-- model merchant category code , accord to ISO 18245
-- model country code, accord to [ISO 3166-1 alpha 2]
-- model transaction currency, accord to ISO 4217
 
