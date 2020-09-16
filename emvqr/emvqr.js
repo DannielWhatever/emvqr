@@ -1,6 +1,8 @@
 
 const crc = require('./crc');
 const models = require('./models');
+const fs = require('fs')
+const mcc_codes = require('./mcc_codes.json')
 const getDataObjectName = models.getDataObjectName;
 const getDataObjectNameSubData = models.getDataObjectNameSubData;
 
@@ -18,6 +20,13 @@ function decode(emvString) {
     while (inputText.length > 0) {
         debug.log('inputText', inputText);
         let { emvItem, remainingText } = readNext(inputText);
+        if (emvItem.id == 52) {
+            let translateCode = getObjects(mcc_codes,'mcc',emvItem.data)
+            emvItem.data = `${emvItem.data} (${translateCode[0].usda_description})`
+        }
+        if (emvItem.name == 'Merchant Account Information') {
+            emvItem.data = decodeSubData(emvItem.data)
+        }
         emvObject[emvItem.id] = emvItem;
         inputText = remainingText;
     }
@@ -93,6 +102,24 @@ function validateChecksum(emvString) {
 
     const expectedCRC = crc.computeCRC(emvData);
     return expectedCRC === checksum;
+}
+
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else
+            if (i == key && obj[i] == val || i == key && val == '') { //
+                objects.push(obj);
+            } else if (obj[i] == val && key == '') {
+                if (objects.lastIndexOf(obj) == -1) {
+                    objects.push(obj);
+                }
+            }
+    }
+    return objects;
 }
 
 module.exports = {
