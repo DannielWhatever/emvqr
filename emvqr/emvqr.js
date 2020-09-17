@@ -5,6 +5,8 @@ const fs = require('fs')
 const mcc_codes = require('./mcc_codes.json')
 const getDataObjectName = models.getDataObjectName;
 const getDataObjectNameSubData = models.getDataObjectNameSubData;
+const getDataObjectAdditionalFieldsName = models.getDataObjectAdditionalFieldsName;
+const getDataObjectNamePaymentSpecific = models.getDataObjectNamePaymentSpecific;
 
 // 
 let debug = { log: o => o };
@@ -21,11 +23,14 @@ function decode(emvString) {
         debug.log('inputText', inputText);
         let { emvItem, remainingText } = readNext(inputText);
         if (emvItem.id == 52) {
-            let translateCode = getObjects(mcc_codes,'mcc',emvItem.data)
+            let translateCode = getObjects(mcc_codes, 'mcc', emvItem.data)
             emvItem.data = `${emvItem.data} (${translateCode[0].usda_description})`
         }
         if (emvItem.name == 'Merchant Account Information') {
             emvItem.data = decodeSubData(emvItem.data)
+        }
+        if (emvItem.name == 'Additional Data Field Template') {
+            emvItem.data = decodeAdditionalFields(emvItem.data)
         }
         emvObject[emvItem.id] = emvItem;
         inputText = remainingText;
@@ -46,6 +51,37 @@ function decodeSubData(emvString) {
     while (inputText.length > 0) {
         debug.log('inputText', inputText);
         let { emvItem, remainingText } = readNextSubData(inputText);
+        emvObject[emvItem.id] = emvItem;
+        inputText = remainingText;
+    }
+
+    return emvObject;
+}
+function decodeAdditionalFields(emvString) {
+    const emvObject = {};
+
+    // parse emv string
+    let inputText = emvString;
+    while (inputText.length > 0) {
+        debug.log('inputText', inputText);
+        let { emvItem, remainingText } = readNextAdditionalFields(inputText);
+        if (emvItem.id == '60') {
+            emvItem.data = decodePaymentSpecific(emvItem.data)
+        }
+        emvObject[emvItem.id] = emvItem;
+        inputText = remainingText;
+    }
+
+    return emvObject;
+}
+function decodePaymentSpecific(emvString) {
+    const emvObject = {};
+
+    // parse emv string
+    let inputText = emvString;
+    while (inputText.length > 0) {
+        debug.log('inputText', inputText);
+        let { emvItem, remainingText } = readNextPaymentSpecific(inputText);
         emvObject[emvItem.id] = emvItem;
         inputText = remainingText;
     }
@@ -80,6 +116,38 @@ function readNextSubData(inputText) {
     const emvItem = {
         id,
         name: getDataObjectNameSubData(id),
+        len,
+        data
+    };
+    const remainingText = inputText.substring(len + 4);
+    return {
+        emvItem,
+        remainingText
+    };
+}
+function readNextAdditionalFields(inputText) {
+    const id = inputText.substring(0, 2);
+    const len = parseInt(inputText.substring(2, 4));
+    const data = inputText.substring(4, len + 4);
+    const emvItem = {
+        id,
+        name: getDataObjectAdditionalFieldsName(id),
+        len,
+        data
+    };
+    const remainingText = inputText.substring(len + 4);
+    return {
+        emvItem,
+        remainingText
+    };
+}
+function readNextPaymentSpecific(inputText) {
+    const id = inputText.substring(0, 2);
+    const len = parseInt(inputText.substring(2, 4));
+    const data = inputText.substring(4, len + 4);
+    const emvItem = {
+        id,
+        name: getDataObjectNamePaymentSpecific(id),
         len,
         data
     };
@@ -125,5 +193,7 @@ function getObjects(obj, key, val) {
 module.exports = {
     decode,
     enableDebugLog: () => (debug = console),
-    decodeSubData
+    decodeSubData,
+    decodeAdditionalFields,
+    decodePaymentSpecific
 }

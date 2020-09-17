@@ -91,6 +91,63 @@ const dataObjectsSchemaSubData = {
         presence: 'M',
     },
 };
+const dataObjectsAdditiolanFields = {
+    '01': {
+        name: 'Bill Number',
+        presence: 'O',
+    },
+    '02': {
+        name: 'Mobile Number',
+        presence: 'O',
+    },
+    '03': {
+        name: 'Store Label',
+        presence: 'O',
+    },
+    '04': {
+        name: 'Loyalty Number',
+        presence: 'O',
+    },
+    '05': {
+        name: 'Reference Label',
+        presence: 'O',
+    },
+    '06': {
+        name: 'Customer Label',
+        presence: 'O',
+    },
+    '07': {
+        name: 'Terminal Label',
+        presence: 'O',
+    },
+    '08': {
+        name: 'Purpose of Transaction',
+        presence: 'O',
+    },
+    '09': {
+        name: 'Additional Consumer Data Request',
+        presence: 'O',
+    },
+    '10-49': {
+        name: 'RFU for EMVCo',
+        presence: 'O',
+    },
+    '50-99': {
+        name: 'Payment System specific templates.',
+        presence: 'O',
+    },
+};
+const dataObjectsPaymentSpecificTemplate = {
+    '00': {
+        name: 'Globally Unique Identifier',
+        presence: 'O',
+    },
+    '01-99': {
+        name: 'Payment System specific',
+        presence: 'O',
+    },
+
+}
 
 function getDataObject(stringId) {
     let dataObject = dataObjectsSchema[stringId];
@@ -105,6 +162,24 @@ function getDataObject(stringId) {
 function getDataObjectSubData(stringId) {
     let dataObject = dataObjectsSchemaSubData[stringId];
     if (!dataObject) {
+
+    }
+    return dataObject;
+}
+function getDataObjectAdditionalFields(stringId) {
+    let dataObject = dataObjectsAdditiolanFields[stringId];
+    if (!dataObject) {
+        const id = parseInt(stringId);
+        (id >= 10 && id <= 49) && (dataObject = dataObjectsAdditiolanFields['10-49']);
+        (id >= 50 && id <= 99) && (dataObject = dataObjectsAdditiolanFields['50-99']);
+    }
+    return dataObject;
+}
+function getDataObjectPaymentSpecifi(stringId) {
+    let dataObject = dataObjectsPaymentSpecificTemplate[stringId];
+    if (!dataObject) {
+        const id = parseInt(stringId);
+        (id >= 1 && id <= 99) && (dataObject = dataObjectsPaymentSpecificTemplate['01-99']);
     }
     return dataObject;
 }
@@ -117,9 +192,19 @@ function getDataObjectNameSubData(stringId) {
     const dataObject = getDataObjectSubData(stringId);
     return dataObject ? dataObject.name : undefined;
 }
+function getDataObjectAdditionalFieldsName(stringId) {
+    const dataObject = getDataObjectAdditionalFields(stringId);
+    return dataObject ? dataObject.name : undefined;
+}
+function getDataObjectNamePaymentSpecific(stringId) {
+    const dataObject = getDataObjectPaymentSpecifi(stringId);
+    return dataObject ? dataObject.name : undefined;
+}
 
 
 module.exports = {
     getDataObjectName,
-    getDataObjectNameSubData
+    getDataObjectNameSubData,
+    getDataObjectAdditionalFieldsName,
+    getDataObjectNamePaymentSpecific
 };
