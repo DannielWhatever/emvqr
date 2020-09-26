@@ -1,1 +1,12 @@
-language: node_js
+language: node_js  
+node_js:  
+  - "node"
+
+before_script:  
+  - cd ./nodejs
+  
+script:  
+  - npm install
+
+after_script:  
+  - npm run test
