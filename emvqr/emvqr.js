@@ -3,6 +3,8 @@ const crc = require('./crc');
 const models = require('./models');
 const fs = require('fs')
 const mcc_codes = require('./mcc_codes.json')
+const currencyCode = require('./currencies.json')
+const countries = require('./countries.json')
 const getDataObjectName = models.getDataObjectName;
 const getDataObjectNameSubData = models.getDataObjectNameSubData;
 const getDataObjectAdditionalFieldsName = models.getDataObjectAdditionalFieldsName;
@@ -25,6 +27,14 @@ function decode(emvString) {
         if (emvItem.id == 52) {
             let translateCode = getObjects(mcc_codes, 'mcc', emvItem.data)
             emvItem.data = `${emvItem.data} (${translateCode[0].usda_description})`
+        }
+        if (emvItem.id == 53 ){
+            let currencyTranslate = getObjects(currencyCode,'number',emvItem.data)
+            emvItem.data = `${emvItem.data} (${currencyTranslate[0].code})`
+        }
+        if(emvItem.id == 58){
+            let countriExplain = getObjects(countries,'Code',emvItem.data)
+            emvItem.data = `${emvItem.data} (${countriExplain[0].Name})`
         }
         if (emvItem.name == 'Merchant Account Information') {
             emvItem.data = decodeSubData(emvItem.data)
