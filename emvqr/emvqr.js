@@ -50,7 +50,6 @@ function decode(emvString) {
     if (!validateChecksum(emvString)) {
         throw new Error('checksum validation failed.');
     };
-
     return emvObject;
 }
 function decodeSubData(emvString) {
@@ -105,7 +104,7 @@ function decodePaymentSpecific(emvString) {
  */
 function readNext(inputText) {
     const id = inputText.substring(0, 2);
-    const len = parseInt(inputText.substring(2, 4));
+    const len = checkNumberType(parseInt(inputText.substring(2, 4)));
     const data = inputText.substring(4, len + 4);
     const emvItem = {
         id,
@@ -121,7 +120,7 @@ function readNext(inputText) {
 }
 function readNextSubData(inputText) {
     const id = inputText.substring(0, 2);
-    const len = parseInt(inputText.substring(2, 4));
+    const len = checkNumberType(parseInt(inputText.substring(2, 4)));
     const data = inputText.substring(4, len + 4);
     const emvItem = {
         id,
@@ -137,7 +136,7 @@ function readNextSubData(inputText) {
 }
 function readNextAdditionalFields(inputText) {
     const id = inputText.substring(0, 2);
-    const len = parseInt(inputText.substring(2, 4));
+    const len = checkNumberType(parseInt(inputText.substring(2, 4)));
     const data = inputText.substring(4, len + 4);
     const emvItem = {
         id,
@@ -153,7 +152,7 @@ function readNextAdditionalFields(inputText) {
 }
 function readNextPaymentSpecific(inputText) {
     const id = inputText.substring(0, 2);
-    const len = parseInt(inputText.substring(2, 4));
+    const len = checkNumberType(parseInt(inputText.substring(2, 4)));
     const data = inputText.substring(4, len + 4);
     const emvItem = {
         id,
@@ -198,6 +197,14 @@ function getObjects(obj, key, val) {
             }
     }
     return objects;
+}
+
+function checkNumberType(parsedNo) {
+    if (isNaN(parsedNo)) {
+        throw new Error('Invalid EMV data');
+    } else {
+        return parsedNo
+    }
 }
 
 module.exports = {
