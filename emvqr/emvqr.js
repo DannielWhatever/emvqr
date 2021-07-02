@@ -134,6 +134,7 @@ function readNextSubData(inputText) {
         remainingText
     };
 }
+
 function readNextAdditionalFields(inputText) {
     const id = inputText.substring(0, 2);
     const len = checkNumberType(parseInt(inputText.substring(2, 4)));

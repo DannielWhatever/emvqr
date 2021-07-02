@@ -1,6 +1,6 @@
 {
   "name": "emvqr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "help to work with emv qr code specification for digital payments",
   "main": "index.js",
   "scripts": {
