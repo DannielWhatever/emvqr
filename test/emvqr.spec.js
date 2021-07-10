@@ -30,3 +30,11 @@ test('should throw an error, when its called with an invalid checksum', () => {
         emvqr.decode(emvqrBadChecksumExample)
     }).toThrow(Error);
 });
+
+
+test('should return a valid object, when its called with a not recognized value for MCC value', () => {
+    const emvqrNotRecognizedMccValue = '00020101021229300012D156000000000510A93FO3230Q31280012D156000000010308123456785204x1215802CN5914BEST TRANSPORT6007BEIJING64200002ZH0104最佳运输0202北京540523.7253031565502016233030412340603***0708A60086670902ME91320016A0112233449988770708123456786304438F';
+    const emvObject = emvqr.decode(emvqrNotRecognizedMccValue);
+
+    expect(typeof emvObject).toBe('object');
+});

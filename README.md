@@ -97,7 +97,5 @@ cconsole.log(result);
 
 ## Contributors  
 
-- [@gandol](https://github.com/gandol)
-- [@dannielwhatever](https://github.com/dannielwhatever)
-
+If you are interested on maintain this library just say it ;)
 

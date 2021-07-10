@@ -1,0 +1,46 @@
+{
+    "01":{
+       "name":"Bill Number",
+       "presence":"O"
+    },
+    "02":{
+       "name":"Mobile Number",
+       "presence":"O"
+    },
+    "03":{
+       "name":"Store Label",
+       "presence":"O"
+    },
+    "04":{
+       "name":"Loyalty Number",
+       "presence":"O"
+    },
+    "05":{
+       "name":"Reference Label",
+       "presence":"O"
+    },
+    "06":{
+       "name":"Customer Label",
+       "presence":"O"
+    },
+    "07":{
+       "name":"Terminal Label",
+       "presence":"O"
+    },
+    "08":{
+       "name":"Purpose of Transaction",
+       "presence":"O"
+    },
+    "09":{
+       "name":"Additional Consumer Data Request",
+       "presence":"O"
+    },
+    "10-49":{
+       "name":"RFU for EMVCo",
+       "presence":"O"
+    },
+    "50-99":{
+       "name":"Payment System specific templates.",
+       "presence":"O"
+    }
+ }
