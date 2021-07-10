@@ -1,5 +1,8 @@
 const checksumUtils = require('./utils/checksumUtils');
 const emvDecoder = require('./emvDecoder');
+const logger = require('./utils/logger');
+
+const enableDebugLog = logger.enableDebugLog;
 
 
 function decode(emvString) {
@@ -33,4 +36,5 @@ module.exports = {
     decodeSubData,
     decodeAdditionalFields,
     decodePaymentSpecific,
+    enableDebugLog,
 };
