@@ -1,5 +1,5 @@
 const checksumUtils = require('./utils/checksumUtils');
-const emvDecoder = require('./emvDecoder');
+const emvDecoder = require('./decoder');
 const logger = require('./utils/logger');
 
 const enableDebugLog = logger.enableDebugLog;
