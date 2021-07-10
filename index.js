@@ -1,1 +1,1 @@
-module.exports = require('./emvqr/emvqr');
+module.exports = require('./src/emvqr');
