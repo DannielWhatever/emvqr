@@ -72,9 +72,9 @@ function _addMetaData(emvItem) {
         const mcc_code = mcc_codes.find(item => item['mcc'] === emvItem.data);
         mcc_code && (emvItem.data = `${emvItem.data} (${mcc_code.usda_description})`);
     }
-    if (emvItem.id == 53 ){
-        const currency = currencies.find(item => item['Code'] === emvItem.data);
-        currency && (emvItem.data = `${emvItem.data} (${currency.number})`);
+    if (emvItem.id == 53) {
+        const currency = currencies.find(item => item['number'] === emvItem.data);
+        currency && (emvItem.data = `${emvItem.data} (${currency.code})`);
     }
     if(emvItem.id == 58){
         const country = countries.find(item => item['Code'] === emvItem.data);
