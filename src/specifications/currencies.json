@@ -15,13 +15,13 @@
     "code": "ALL",
     "decimals": 2,
     "name": "Albanian lek",
-    "number": "8"
+    "number": "008"
   },
   {
     "code": "AMD",
     "decimals": 2,
     "name": "Armenian dram",
-    "number": "51"
+    "number": "051"
   },
   {
     "code": "ANG",
@@ -39,13 +39,13 @@
     "code": "ARS",
     "decimals": 2,
     "name": "Argentine peso",
-    "number": "32"
+    "number": "032"
   },
   {
     "code": "AUD",
     "decimals": 2,
     "name": "Australian dollar",
-    "number": "36"
+    "number": "036"
   },
   {
     "code": "AWG",
@@ -69,13 +69,13 @@
     "code": "BBD",
     "decimals": 2,
     "name": "Barbados dollar",
-    "number": "52"
+    "number": "052"
   },
   {
     "code": "BDT",
     "decimals": 2,
     "name": "Bangladeshi taka",
-    "number": "50"
+    "number": "050"
   },
   {
     "code": "BGN",
@@ -87,7 +87,7 @@
     "code": "BHD",
     "decimals": 3,
     "name": "Bahraini dinar",
-    "number": "48"
+    "number": "048"
   },
   {
     "code": "BIF",
@@ -99,19 +99,19 @@
     "code": "BMD",
     "decimals": 2,
     "name": "Bermudian dollar (customarily known as Bermuda dollar)",
-    "number": "60"
+    "number": "060"
   },
   {
     "code": "BND",
     "decimals": 2,
     "name": "Brunei dollar",
-    "number": "96"
+    "number": "096"
   },
   {
     "code": "BOB",
     "decimals": 2,
     "name": "Boliviano",
-    "number": "68"
+    "number": "068"
   },
   {
     "code": "BOV",
@@ -129,19 +129,19 @@
     "code": "BSD",
     "decimals": 2,
     "name": "Bahamian dollar",
-    "number": "44"
+    "number": "044"
   },
   {
     "code": "BTN",
     "decimals": 2,
     "name": "Bhutanese ngultrum",
-    "number": "64"
+    "number": "064"
   },
   {
     "code": "BWP",
     "decimals": 2,
     "name": "Botswana pula",
-    "number": "72"
+    "number": "072"
   },
   {
     "code": "BYR",
@@ -153,7 +153,7 @@
     "code": "BZD",
     "decimals": 2,
     "name": "Belize dollar",
-    "number": "84"
+    "number": "084"
   },
   {
     "code": "CAD",
@@ -267,7 +267,7 @@
     "code": "DZD",
     "decimals": 2,
     "name": "Algerian dinar",
-    "number": "12"
+    "number": "012"
   },
   {
     "code": "EGP",
@@ -753,7 +753,7 @@
     "code": "SBD",
     "decimals": 2,
     "name": "Solomon Islands dollar",
-    "number": "90"
+    "number": "090"
   },
   {
     "code": "SCR",
