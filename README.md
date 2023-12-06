@@ -34,7 +34,7 @@ const example = '00020101021229300012D156000000000510A93FO3230Q31280012D15600000
 
 ```javascript
 const result = emvqr.decode(example);
-cconsole.log(result);
+console.log(result);
 ```
 
 *Result:*
